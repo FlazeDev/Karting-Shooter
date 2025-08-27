@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://sqwfomb534qy"]
+
+[ext_resource type="Material" uid="uid://dcgc5ht6g6r5n" path="res://Materials/PrototypeTextures.tres" id="1_mdacc"]
+[ext_resource type="PackedScene" uid="uid://dpysp4jxtpu3" path="res://Scenes/vehicle.tscn" id="3_ikfpw"]
+
+[sub_resource type="Environment" id="Environment_l5lgv"]
+background_mode = 2
+ambient_light_color = Color(1, 1, 1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_plwan"]
+size = Vector3(200, 1, 200)
+
+[sub_resource type="BoxMesh" id="BoxMesh_q472j"]
+material = ExtResource("1_mdacc")
+size = Vector3(200, 1, 200)
+
+[node name="TestLevel" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0.865108, 22.2221, -1.20296)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_l5lgv")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_plwan")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("BoxMesh_q472j")
+
+[node name="SpawnPoint" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20.8753, 0)
+
+[node name="Vehicle" parent="SpawnPoint" instance=ExtResource("3_ikfpw")]

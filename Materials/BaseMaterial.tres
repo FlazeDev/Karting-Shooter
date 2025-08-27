@@ -1,0 +1,15 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://bjiithat28gb0"]
+
+[ext_resource type="Texture2D" uid="uid://bmbhaw785oxxq" path="res://colormap.png" id="1_7es2j"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pfw4j"]
+cull_mode = 1
+albedo_color = Color(0, 0, 0, 1)
+grow = true
+grow_amount = 0.008
+
+[resource]
+next_pass = SubResource("StandardMaterial3D_pfw4j")
+diffuse_mode = 3
+specular_mode = 2
+albedo_texture = ExtResource("1_7es2j")

@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://dpysp4jxtpu3"]
+
+[ext_resource type="Script" path="res://Scripts/vehicle.gd" id="1_ogl3q"]
+[ext_resource type="Script" path="res://Scripts/player_input.gd" id="2_nvgpi"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_8lr1u"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_wsp0a"]
+
+[node name="Vehicle" type="Node3D"]
+script = ExtResource("1_ogl3q")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://Models/Car.tscn")
+spawn_path = NodePath("..")
+spawn_limit = 1
+
+[node name="BoostTimer" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
+
+[node name="DriftTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Holder" type="Node3D" parent="."]
+
+[node name="CameraHolder" type="Node3D" parent="Holder"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.29854, 2.40771)
+
+[node name="Camera3D" type="Camera3D" parent="Holder/CameraHolder"]
+transform = Transform3D(1, 0, 0, 0, 0.921971, 0.387258, 0, -0.387258, 0.921971, 0, 0, 0)
+
+[node name="PlayerInput" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_8lr1u")
+script = ExtResource("2_nvgpi")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_wsp0a")
+
+[connection signal="timeout" from="BoostTimer" to="." method="_on_boost_timer_timeout"]
+[connection signal="timeout" from="DriftTimer" to="." method="_on_drift_timer_timeout"]
