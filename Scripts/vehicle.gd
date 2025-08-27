@@ -11,12 +11,16 @@ var enginePower
 var isDrifting = false
 var VehicleType
 var vehicle
-var steering:float
-var engine_force:float
+@export var steering:float
+@export var engine_force:float
 @export var stats:VehicleStats
 
 
-
+@export var player := 1 :
+	set(id):
+		player = id
+		# Give authority over the player input to the appropriate peer.
+		$PlayerInput.set_multiplayer_authority(id)
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	stats = load("res://Stats/Car.tres")
@@ -25,6 +29,8 @@ func _ready() -> void:
 	VehicleType = stats.vehicleType
 	vehicle = VehicleType.instantiate()
 	add_child(vehicle)
+	if player == multiplayer.get_unique_id():
+		$Holder/CameraHolder/Camera3D.current = true
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

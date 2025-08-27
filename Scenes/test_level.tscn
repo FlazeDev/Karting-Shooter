@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://sqwfomb534qy"]
 
+[ext_resource type="Script" path="res://Scripts/level.gd" id="1_hd7om"]
 [ext_resource type="Material" uid="uid://dcgc5ht6g6r5n" path="res://Materials/PrototypeTextures.tres" id="1_mdacc"]
-[ext_resource type="PackedScene" uid="uid://dpysp4jxtpu3" path="res://Scenes/vehicle.tscn" id="3_ikfpw"]
 
 [sub_resource type="Environment" id="Environment_l5lgv"]
 background_mode = 2
@@ -15,6 +15,7 @@ material = ExtResource("1_mdacc")
 size = Vector3(200, 1, 200)
 
 [node name="TestLevel" type="Node3D"]
+script = ExtResource("1_hd7om")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0.865108, 22.2221, -1.20296)
@@ -31,7 +32,10 @@ shape = SubResource("BoxShape3D_plwan")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
 mesh = SubResource("BoxMesh_q472j")
 
-[node name="SpawnPoint" type="Node3D" parent="."]
+[node name="Players" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20.8753, 0)
 
-[node name="Vehicle" parent="SpawnPoint" instance=ExtResource("3_ikfpw")]
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://Scenes/vehicle.tscn")
+spawn_path = NodePath("../Players")
+spawn_limit = 5

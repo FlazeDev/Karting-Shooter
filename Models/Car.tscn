@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://cny6cesxtu3pv"]
+[gd_scene load_steps=15 format=4 uid="uid://cny6cesxtu3pv"]
 
 [ext_resource type="Material" uid="uid://bjiithat28gb0" path="res://Materials/BaseMaterial.tres" id="2_n6gxv"]
 
@@ -180,6 +180,35 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_7j6gg")
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_1bsio"]
+properties/0/path = NodePath(".:engine_force")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:brake")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:steering")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath(".:position")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath(".:rotation")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+properties/5/path = NodePath(".:linear_velocity")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+properties/6/path = NodePath(".:angular_velocity")
+properties/6/spawn = true
+properties/6/replication_mode = 1
+properties/7/path = NodePath("FrontRight:rotation")
+properties/7/spawn = true
+properties/7/replication_mode = 1
+properties/8/path = NodePath("FrontLeft:rotation")
+properties/8/spawn = true
+properties/8/replication_mode = 1
+
 [node name="Car" type="VehicleBody3D"]
 axis_lock_angular_x = true
 axis_lock_angular_z = true
@@ -234,3 +263,6 @@ surface_material_override/0 = ExtResource("2_n6gxv")
 mesh = SubResource("ArrayMesh_srcqa")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("2_n6gxv")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_1bsio")

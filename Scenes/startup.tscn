@@ -1,0 +1,62 @@
+[gd_scene load_steps=2 format=3 uid="uid://lx85pta6jiyv"]
+
+[ext_resource type="Script" path="res://Scripts/NetworkManager.gd" id="1_3kktd"]
+
+[node name="Startup" type="Node"]
+
+[node name="Level" type="Node" parent="."]
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Host" type="Button" parent="UI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -577.0
+offset_top = -261.0
+offset_right = -377.0
+offset_bottom = -199.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "HOST"
+
+[node name="Client" type="Button" parent="UI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -577.0
+offset_top = -323.0
+offset_right = -377.0
+offset_bottom = -261.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "CLIENT"
+
+[node name="NetworkManager" type="Node" parent="."]
+script = ExtResource("1_3kktd")
+
+[node name="LevelSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://Scenes/test_level.tscn")
+spawn_path = NodePath("../Level")
+spawn_limit = 1
+
+[connection signal="pressed" from="UI/Host" to="NetworkManager" method="_on_host_pressed"]
+[connection signal="pressed" from="UI/Client" to="NetworkManager" method="_on_client_pressed"]
