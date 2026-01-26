@@ -1,0 +1,79 @@
+[gd_scene load_steps=8 format=3 uid="uid://sqwfomb534qy"]
+
+[ext_resource type="Script" uid="uid://byvkqueo2gu54" path="res://Scripts/ConnectionManager.gd" id="1_dtjkg"]
+[ext_resource type="Material" uid="uid://dcgc5ht6g6r5n" path="res://Materials/PrototypeTextures.tres" id="1_mdacc"]
+
+[sub_resource type="Environment" id="Environment_l5lgv"]
+background_mode = 2
+ambient_light_color = Color(1, 1, 1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_plwan"]
+size = Vector3(200, 1, 200)
+
+[sub_resource type="BoxMesh" id="BoxMesh_q472j"]
+material = ExtResource("1_mdacc")
+size = Vector3(200, 1, 200)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dtjkg"]
+size = Vector3(5, 5, 5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_eglq2"]
+size = Vector3(5, 5, 5)
+
+[node name="TestLevel" type="Node3D"]
+
+[node name="ConnectionManager" type="Node" parent="."]
+script = ExtResource("1_dtjkg")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0.865108, 22.2221, -1.20296)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_l5lgv")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_plwan")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("BoxMesh_q472j")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="StaticBody3D"]
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 0.91943073, -0.393252, 0, 0.393252, 0.91943073, 0, -0.93848467, -4.868408)
+shape = SubResource("BoxShape3D_dtjkg")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="StaticBody3D/StaticBody3D/CollisionShape3D2"]
+mesh = SubResource("BoxMesh_eglq2")
+skeleton = NodePath("../../..")
+
+[node name="Players" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 41.307293, 0)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Host" type="Button" parent="CanvasLayer"]
+offset_right = 119.0
+offset_bottom = 45.0
+text = "Host"
+
+[node name="Join" type="Button" parent="CanvasLayer"]
+offset_top = 60.0
+offset_right = 119.0
+offset_bottom = 105.0
+text = "Join"
+
+[node name="Join ID" type="TextEdit" parent="CanvasLayer"]
+offset_top = 173.0
+offset_right = 119.0
+offset_bottom = 218.0
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://dpysp4jxtpu3", "uid://sqwfomb534qy")
+spawn_path = NodePath("../Players")
+
+[connection signal="pressed" from="CanvasLayer/Host" to="ConnectionManager" method="_on_host_pressed"]
+[connection signal="pressed" from="CanvasLayer/Join" to="ConnectionManager" method="_on_join_pressed"]

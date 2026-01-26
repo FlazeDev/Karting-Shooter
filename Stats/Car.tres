@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="VehicleStats" load_steps=3 format=3 uid="uid://mq4pp5oy770y"]
+
+[ext_resource type="Script" uid="uid://4eit17xam3q0" path="res://Scripts/VehicleStats.gd" id="1_4guwv"]
+[ext_resource type="PackedScene" uid="uid://cny6cesxtu3pv" path="res://CarTypes/Car.tscn" id="2_n7euo"]
+
+[resource]
+script = ExtResource("1_4guwv")
+enginePower = 500.0
+maxSteer = 1.0
+health = 100.0
+vehicleType = ExtResource("2_n7euo")

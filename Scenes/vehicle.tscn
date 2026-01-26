@@ -1,0 +1,46 @@
+[gd_scene load_steps=4 format=3 uid="uid://dpysp4jxtpu3"]
+
+[ext_resource type="Script" uid="uid://yhwgwo38a4lk" path="res://Scripts/vehicle.gd" id="1_ogl3q"]
+[ext_resource type="Resource" uid="uid://mq4pp5oy770y" path="res://Stats/Car.tres" id="2_hvehr"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_3ngla"]
+properties/0/path = NodePath(".:steering")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:engine_force")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:position")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath(".:rotation")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath("Holder/CameraHolder/Camera3D:current")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+
+[node name="Vehicle" type="Node3D"]
+script = ExtResource("1_ogl3q")
+stats = ExtResource("2_hvehr")
+
+[node name="BoostTimer" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
+
+[node name="DriftTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_3ngla")
+
+[node name="Holder" type="Node3D" parent="."]
+
+[node name="CameraHolder" type="SpringArm3D" parent="Holder"]
+transform = Transform3D(1, 0, 0, 0, 0.87289655, -0.48790538, 0, 0.48790538, 0.87289655, 0, 3.026496, 1.4657459)
+
+[node name="Camera3D" type="Camera3D" parent="Holder/CameraHolder"]
+transform = Transform3D(1, 0, 0, 0, 0.4170899, 0.9088653, 0, -0.9088653, 0.4170899, 0, 0, 0)
+
+[connection signal="timeout" from="BoostTimer" to="." method="_on_boost_timer_timeout"]
+[connection signal="timeout" from="DriftTimer" to="." method="_on_drift_timer_timeout"]
